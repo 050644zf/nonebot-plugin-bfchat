@@ -42,7 +42,7 @@ bfchat_dir = "./bfchat_data"    # bfchat的存储目录，用于存储群绑定�
 
 bfv me
 
-![img](https://raw.githubusercontent.com/050644zf/nonebot-plugin-bfchat/master/img/bfvme.png)
+<img src="https://raw.githubusercontent.com/050644zf/nonebot-plugin-bfchat/master/img/bfvme.jpg" width="400px"/>
 
 bfv server BFV ROBOT
 
