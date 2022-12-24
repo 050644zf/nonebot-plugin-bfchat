@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nonebot-plugin-bfchat"
+version = "0.1.0"
+authors = [
+  { name="Nightsky", email="050644zf@outlook.com" },
+]
+description = "A chatbot for providing battlefield 1/v stats and more."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/050644zf/nonebot-plugin-bfchat"
+"Bug Tracker" = "https://github.com/050644zf/nonebot-plugin-bfchat/issues"
