@@ -1,22 +1,18 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[project]
+[tool.poetry]
 name = "nonebot-plugin-bfchat"
-version = "0.1.0"
-authors = [
-  { name="Nightsky", email="050644zf@outlook.com" },
-]
-description = "A chatbot for providing battlefield 1/v stats and more."
+version = "0.1.1"
+description = "A battlefield 1/v chatbot based on nonebot2 framework"
+authors = ["Nightsky <050644zf@outlook.com>"]
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
+packages = [{include = "nonebot_plugin_bfchat"}]
 
-[project.urls]
-"Homepage" = "https://github.com/050644zf/nonebot-plugin-bfchat"
-"Bug Tracker" = "https://github.com/050644zf/nonebot-plugin-bfchat/issues"
+[tool.poetry.dependencies]
+python = "^3.8"
+nonebot-plugin-htmlrender = "^0.2.0.1"
+nonebot = "^1.9.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
