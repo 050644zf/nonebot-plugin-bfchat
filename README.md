@@ -4,17 +4,18 @@
 
 ## 安装
 
-pip:
+nb-cli: (推荐)(等发布)
+
+```bash
+nb plugin install nonebot-plugin-bfchat
+```
+
+pip: (需要在pyproject.toml手动导入)
 
 ```bash
 pip install nonebot-plugin-bfchat
 ```
 
-nb-cli:
-
-```bash
-nb plugin install nonebot-plugin-bfchat
-```
 
 ## 配置项及默认值
 
