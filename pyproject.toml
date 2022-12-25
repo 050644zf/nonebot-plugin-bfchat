@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-bfchat"
-version = "0.2.0"
+version = "0.2.1"
 description = "A battlefield 1/v chatbot based on nonebot2 framework"
 authors = ["Nightsky <050644zf@outlook.com>"]
 license = "MIT"
@@ -12,6 +12,7 @@ python = "^3.8"
 nonebot-plugin-htmlrender = "^0.2.0.1"
 nonebot2 = "^2.0.0rc2"
 nonebot-adapter-onebot = "^2.2.0"
+requests = "^2.28.1"
 
 
 [build-system]
