@@ -6,7 +6,7 @@
 
 ## 安装
 
-nb-cli: (推荐)(等发布)
+nb-cli: (推荐)
 
 ```bash
 nb plugin install nonebot-plugin-bfchat
