@@ -19,38 +19,67 @@
       <t1 style="padding-left: 20px;">战地五战绩查询          </t1>
     </div> -->
     <div style="margin-left:40px;padding-top: 60px;padding-bottom: 20px; margin-right: 350px;" class="flex flex-col flex-nowarp justify-center items-center">
-      <img src="{d[avatar]}" alt="avatar" class="shadow-xl rounded-lg" width="128px"/>
-      <div class="font-bold text-3xl shadow-xl">{d[userName]}</div>
-      <div class="font-semibold text-gray-200">游戏时间：{d[__hoursPlayed]:.1f} h</div>
-      
+      <div class="font-bold text-3xl shadow-xl">{d[base_list][name]}</div>
+      <div class="font-semibold text-gray-200">游戏时间：{d[base_list][timePlayed]}</div>
+      Rank {d[base_list][level]}
     </div>
-    <div class="bg-gradient-to-b from-transparent to-bb" style="padding: 3%;"> &nbsp;</div>
+    <div class="bg-gradient-to-b from-transparent to-bb" style="padding: 3%;">
+
+    </div>
   </div>
   <t1>基本信息</t1>
   <div class="flex flex-col justify-center grid grid-cols-5 gap-4 rounded-lg" style="margin:0px 20px; padding: 10px; background-color: rgba(255,255,255,0.05);">
     <div>
       <div class="text-1xl text-yellow-400">击杀</div>
-      <div class="text-2xl font-bold font-mono">{d[kills]:,}</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][kills]}</div>
     </div>
     <div>
       <div class="text-1xl text-yellow-400">死亡</div>
-      <div class="text-2xl font-bold font-mono">{d[deaths]:,}</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][deaths]}</div>
     </div>
     <div>
       <div class="text-1xl text-yellow-400">K/D</div>
-      <div class="text-2xl font-bold font-mono">{d[killDeath]}</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][kdRatio]}</div>
     </div>
     <div>
       <div class="text-1xl text-yellow-400">KPM</div>
-      <div class="text-2xl font-bold font-mono">{d[killsPerMinute]}</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][killsPerMinute]}</div>
+    </div>
+    <div>
+      <div class="text-1xl text-yellow-400">胜率</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][wlPercentage]}</div>
     </div>
     <div>
       <div class="text-1xl text-yellow-400">爆头数</div>
-      <div class="text-2xl font-bold font-mono">{d[headShots]:,}</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][headshotKills]}</div>
+    </div>
+    <div>
+      <div class="text-1xl text-yellow-400">助攻数</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][assists]}</div>
+    </div>
+    <div>
+      <div class="text-1xl text-yellow-400">载具摧毁数</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][vehiclesDestroyed]}</div>
     </div>
     <div>
       <div class="text-1xl text-yellow-400">胜利场数</div>
-      <div class="text-2xl font-bold font-mono">{d[wins]:,}</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][wins]}</div>
+    </div>
+    <div>
+      <div class="text-1xl text-yellow-400">防守目标</div>
+      <div class="text-2xl font-bold font-mono">{d[base_list][defendedObjectives]}</div>
+    </div>
+  </div>
+  <t1>专家信息</t1>
+  <br/>
+  <div class="flex flex-col justify-center gap-2" style="margin:0px 20px; ">
+    {specialist}
+    <div class="text-center text-slate-400">
+      使用
+      <span class="text-sky-500">
+        {prefix}{game} [玩家id/me] specialist
+      </span>
+      查看更多数据
     </div>
   </div>
   <t1>武器信息</t1>
@@ -78,7 +107,6 @@
   </div>
   <div class="bg-gradient-to-b from-bb via-sky-900 to-sky-900 flex flex-col justify-center items-center text-slate-400" style="padding-top: 30px; margin-top:30px; padding-bottom:20px;">
     <span>powered by bfchat by nightskym31</span>
-    <span>Gametools的2042 API仍在开发中，出现不能载图等情况可能是API问题</span>
     <span>数据更新时间：{update_time}</span>
     
 

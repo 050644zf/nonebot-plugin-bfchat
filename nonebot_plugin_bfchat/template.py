@@ -3,25 +3,34 @@ import time
 import json
 
 CURRENT_FOLDER = Path(__file__).parent.resolve()
-
+BFV_PLAYERS_DATA = CURRENT_FOLDER/'bfv_players'
 
 BFV_BANNER = 'https://s1.ax1x.com/2022/12/14/z54oIs.jpg'
-BF1_BANNER = "https://s1.ax1x.com/2022/12/15/zoMaxe.jpg"
-BF2042_BANNER = "https://s1.ax1x.com/2023/01/24/pSYXS3Q.jpg"
 
-BANNERS = {"bfv":BFV_BANNER, "bf1":BF1_BANNER, "bf2042":BF2042_BANNER}
+BF1_BANNER = "https://s1.ax1x.com/2022/12/15/zoMaxe.jpg"
+
+BF2042_BANNER = "https://s1.ax1x.com/2022/12/29/pSpS41K.png"
 
 with open(CURRENT_FOLDER/'template.html', encoding='utf-8') as f:
     MAIN_TEMPLATE = f.read()
 
 with open(CURRENT_FOLDER/'template2042.html', encoding='utf-8') as f:
-    MAIN2042_TEMPLATE = f.read()
+    TEMPLATE_2042 = f.read()
+
+with open(CURRENT_FOLDER/'specials_2042card.html', encoding='utf-8') as f:
+    SPECIAL_2042CARD = f.read()
+
+with open(CURRENT_FOLDER/'weapon_2042card.html', encoding='utf-8') as f:
+    WEAPON_2042CARD = f.read()
 
 with open(CURRENT_FOLDER/'weapon_card.html', encoding='utf-8') as f:
     WEAPON_CARD = f.read()
 
 with open(CURRENT_FOLDER/'vehicle_card.html', encoding='utf-8') as f:
     VEHICLE_CARD = f.read()
+
+with open(CURRENT_FOLDER/'vehicle_2042card.html', encoding='utf-8') as f:
+    VEHICLE_2042CARD = f.read()
 
 with open(CURRENT_FOLDER/'src.js', encoding='utf-8') as f:
     SRC = f.read()
@@ -52,7 +61,7 @@ def get_group_list(dlist:list):
     fmt = '{0[userName]}/{0[rank]}/{0[kills]}/{0[killDeath]}/{0[killsPerMinute]}/{0[scorePerMinute]}/{0[headshots]}/{0[revives]:.0f}'
     for d in dlist:
         l.append(fmt.format(d).split('/'))
-    
+
     return list_to_html_table(l)
 
 def get_weapons_data(d:dict, lens:int):
@@ -68,12 +77,14 @@ def get_weapons_data(d:dict, lens:int):
 def get_weapons_data_md(d:dict, lens:int):
     weapons_list = d['weapons']
     weapons_list = sort_list_of_dicts(weapons_list, 'kills')
-    l = [['武器名称','使用时间', '击杀', 'KPM', '爆头率', '击发数', '命中数']]
+    l = [['武器名称','使用时间', '击杀', 'KPM', '爆头率', '击发数', '命中数', '准度']]
     for w in weapons_list[:lens]:
         w['__timeEquippedHours'] = w['timeEquipped']/3600
         l.append([
-            w['weaponName'],f"{w['__timeEquippedHours']:.1f}h",f"{w['kills']:,}",w['killsPerMinute'],w['headshots'],f"{w['shotsFired']:,}", f"{w['shotsHit']:,}"
+            w['weaponName'],f"{w['__timeEquippedHours']:.1f}h",f"{w['kills']:,}",w['killsPerMinute'],w['headshots'],f"{w['shotsFired']:,}", f"{w['shotsHit']:,}",w['accuracy']
         ])
+
+
 
     return list_to_html_table(l)
 
@@ -107,18 +118,77 @@ def get_server_md(d:dict):
     fmt = '<img src="{0[url]}" width=80/>|{0[region]}|{0[prefix]}|{0[playerAmount]}/{0[maxPlayers]}[{0[inQue]}]|{0[mode]}|{0[currentMap]}'
     for d in d:
         l.append(fmt.format(d).split('|'))
-    
-    return list_to_html_table(l)
 
+    return list_to_html_table(l)
 
 def apply_template(d,game='bfv',prefix='/')->str:
     d['__hoursPlayed'] = d['secondsPlayed']/3600
     update_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(d['__update_time']))
     weapons = get_weapons_data(d,5)
     vehicles = get_vehicles_data(d,5)
-    banner = BANNERS[game]
-    if game=='bf2042':
-        return MAIN2042_TEMPLATE.format(d=d, update_time=update_time,weapons=weapons, vehicles=vehicles, src=SRC, style=STYLE, banner=banner,game=game,prefix=prefix)
-    else:
-        return MAIN_TEMPLATE.format(d=d, update_time=update_time,weapons=weapons, vehicles=vehicles, src=SRC, style=STYLE, banner=banner,game=game,prefix=prefix)
-    
+    banner = BFV_BANNER if game=='bfv' else BF1_BANNER
+    return MAIN_TEMPLATE.format(d=d, update_time=update_time,weapons=weapons, vehicles=vehicles, src=SRC, style=STYLE, banner=banner,game=game,prefix=prefix)
+
+def apply_template2042(d,prefix='/')->str:
+    d['__hoursPlayed'] = d['base_list']['timePlayed']
+    update_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(d['base_list']['__update_time']))
+    weapons = get_2042weapons_data(d,5)
+    vehicles = get_2042vehicles_data(d,5)
+    specialist=get_specialist_data(d,5)
+    banner = BF2042_BANNER
+    return TEMPLATE_2042.format(d=d, update_time=update_time,specialist=specialist,weapons=weapons, vehicles=vehicles, src=SRC, style=STYLE, banner=banner,game='bf2042',prefix=prefix)
+
+def get_2042weapons_data(d:dict, lens:int):
+    weapons_list = d['weapons_list']
+    s = ''
+    for w in weapons_list[:lens]:
+        s += WEAPON_2042CARD.format(w=w)
+
+    return s
+
+def get_specialist_data(d:dict, lens:int):
+    special_list = d['specialist_list']
+    s = ''
+    for w in special_list[:lens]:
+        s += SPECIAL_2042CARD.format(w=w)
+
+    return s
+
+def get_2042specials_data_md(d:dict, lens:int):
+    special_list = d['specialist_list']
+    l = [['专家名称','使用时间', '击杀', '助攻', '死亡', 'K/D', 'KPM', '拉人数']]
+    for w in special_list[:lens]:
+        l.append([
+            w['name'],f"{w['timePlayed']}",f"{w['kills']}",w['assists'],w['deaths'],f"{w['kdRatio']}", f"{w['killsPerMinute']}",w['revives']
+        ])
+    return list_to_html_table(l)
+
+
+def get_2042weapons_data_md(d:dict, lens:int):
+    weapons_list = d['weapons_list']
+    l = [['武器名称','使用时间', '击杀', 'KPM', '爆头率', '击发数', '命中数', '准度']]
+    for w in weapons_list[:lens]:
+        l.append([
+            w['weaponName'],f"{w['__timeEquippedHours']}",f"{w['kills']}",w['killsPerMinute'],w['headshots'],f"{w['shotsFired']}", f"{w['shotsHit']}",w['accuracy']
+        ])
+    return list_to_html_table(l)
+
+def get_2042vehicles_data(d:dict, lens:int):
+    vehicles_list = d['vehicle_list']
+    s = ''
+    for v in vehicles_list[:lens]:
+        s += VEHICLE_2042CARD.format(v=v)
+
+    return s
+
+def get_2042vehicles_data_md(d:dict, lens:int):
+    vehicles_list = d['vehicle_list']
+    l = [['载具名称','使用时间','击杀','KPM','摧毁载具数']]
+    for v in vehicles_list[:lens]:
+        l.append([
+            v['vehicleName'],f"{v['__timeInHour']}h",f"{v['kills']}",v['killsPerMinute'],f"{v['destroyed']}"
+        ])
+    return list_to_html_table(l)
+
+
+
