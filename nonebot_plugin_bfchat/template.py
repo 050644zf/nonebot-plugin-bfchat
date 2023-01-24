@@ -3,14 +3,19 @@ import time
 import json
 
 CURRENT_FOLDER = Path(__file__).parent.resolve()
-BFV_PLAYERS_DATA = CURRENT_FOLDER/'bfv_players'
+
 
 BFV_BANNER = 'https://s1.ax1x.com/2022/12/14/z54oIs.jpg'
-
 BF1_BANNER = "https://s1.ax1x.com/2022/12/15/zoMaxe.jpg"
+BF2042_BANNER = "https://s1.ax1x.com/2023/01/24/pSYXS3Q.jpg"
+
+BANNERS = {"bfv":BFV_BANNER, "bf1":BF1_BANNER, "bf2042":BF2042_BANNER}
 
 with open(CURRENT_FOLDER/'template.html', encoding='utf-8') as f:
     MAIN_TEMPLATE = f.read()
+
+with open(CURRENT_FOLDER/'template2042.html', encoding='utf-8') as f:
+    MAIN2042_TEMPLATE = f.read()
 
 with open(CURRENT_FOLDER/'weapon_card.html', encoding='utf-8') as f:
     WEAPON_CARD = f.read()
@@ -63,14 +68,12 @@ def get_weapons_data(d:dict, lens:int):
 def get_weapons_data_md(d:dict, lens:int):
     weapons_list = d['weapons']
     weapons_list = sort_list_of_dicts(weapons_list, 'kills')
-    l = [['武器名称','使用时间', '击杀', 'KPM', '爆头率', '击发数', '命中数', '准度']]
+    l = [['武器名称','使用时间', '击杀', 'KPM', '爆头率', '击发数', '命中数']]
     for w in weapons_list[:lens]:
         w['__timeEquippedHours'] = w['timeEquipped']/3600
         l.append([
-            w['weaponName'],f"{w['__timeEquippedHours']:.1f}h",f"{w['kills']:,}",w['killsPerMinute'],w['headshots'],f"{w['shotsFired']:,}", f"{w['shotsHit']:,}",w['accuracy']
+            w['weaponName'],f"{w['__timeEquippedHours']:.1f}h",f"{w['kills']:,}",w['killsPerMinute'],w['headshots'],f"{w['shotsFired']:,}", f"{w['shotsHit']:,}"
         ])
-
-        
 
     return list_to_html_table(l)
 
@@ -113,6 +116,9 @@ def apply_template(d,game='bfv',prefix='/')->str:
     update_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(d['__update_time']))
     weapons = get_weapons_data(d,5)
     vehicles = get_vehicles_data(d,5)
-    banner = BFV_BANNER if game=='bfv' else BF1_BANNER
-    return MAIN_TEMPLATE.format(d=d, update_time=update_time,weapons=weapons, vehicles=vehicles, src=SRC, style=STYLE, banner=banner,game=game,prefix=prefix)
+    banner = BANNERS[game]
+    if game=='bf2042':
+        return MAIN2042_TEMPLATE.format(d=d, update_time=update_time,weapons=weapons, vehicles=vehicles, src=SRC, style=STYLE, banner=banner,game=game,prefix=prefix)
+    else:
+        return MAIN_TEMPLATE.format(d=d, update_time=update_time,weapons=weapons, vehicles=vehicles, src=SRC, style=STYLE, banner=banner,game=game,prefix=prefix)
     

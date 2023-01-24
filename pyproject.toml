@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "nonebot-plugin-bfchat"
-version = "0.2.1"
-description = "A battlefield 1/v chatbot based on nonebot2 framework"
+version = "0.2.2"
+description = "A battlefield 1/v/2042 chatbot based on nonebot2 framework"
 authors = ["Nightsky <050644zf@outlook.com>"]
 license = "MIT"
 readme = "README.md"
