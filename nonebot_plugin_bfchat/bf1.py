@@ -83,7 +83,7 @@ async def bf1_ls(event:GroupMessageEvent, state:T_State):
 async def bf1_server(event:MessageEvent, state:T_State):
     message = _command_arg(state) or event.get_message()
     server_name = message.extract_plain_text().strip()
-    server_data = get_server_data(server_name,'bf1')
+    server_data = get_server_data(server_name)
 
     md_result = f"""# 搜索服务器：{server_name}
 已找到符合要求的服务器 {len(server_data['servers'])} 个，最多显示20个
