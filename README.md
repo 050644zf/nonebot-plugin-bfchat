@@ -2,7 +2,7 @@
 
 # nonebot-plugin-bfchat
 
-一个基于nonebot2平台的战地1/5/2042聊天机器人，提供战绩查询，群账号绑定，服务器查询等功能，提供基于[htmlrender插件](https://github.com/kexue-z/nonebot-plugin-htmlrender)渲染的美观输出。
+一个基于nonebot2平台的战地1/5/2042(测试中)聊天机器人，提供战绩查询，群账号绑定，服务器查询等功能，提供基于[htmlrender插件](https://github.com/kexue-z/nonebot-plugin-htmlrender)渲染的美观输出。
 
 ## 安装
 
