@@ -150,9 +150,9 @@ def apply_template(d, game='bfv', prefix='/') -> str:
     update_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(d['__update_time']))
     weapons = get_weapons_data(d, 5)
     vehicles = get_vehicles_data(d, 5)
-    classes = get_classes_data(d, 5)
     banner = BANNERS[game]
     if game == 'bf2042':
+        classes = get_classes_data(d, 5)
         return MAIN2042_TEMPLATE.format(d=d, update_time=update_time, weapons=weapons, vehicles=vehicles,
                                         classes=classes, src=SRC, style=STYLE, banner=banner, game=game, prefix=prefix)
     else:
