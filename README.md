@@ -43,6 +43,14 @@ bfchat_dir = "./bfchat_data"    # bfchat的存储目录，用于存储群绑定�
 | `[game] list`              | 列出该服务器所有已绑定的bf1/bfv玩家信息                                                                | 使用本地数据，不会自动更新                                                   |
 | `[game] server [服务器名]` | 查询名字包含 `[服务器名]`的bf1/bfv服务器                                                             |                                                                              |
 
+## 常见问题
+
+### 中文显示乱码/框框
+见 [htmlrender的Q&A](https://github.com/kexue-z/nonebot-plugin-htmlrender#%E5%B8%B8%E8%A7%81%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87)
+
+### 头图不正常加载
+头图位于 [路过图床](https://imgse.com/)， 请检查服务器与图床的网络连通性，您可以自行替换头图链接。
+
 ## 示例
 
 bfv me
