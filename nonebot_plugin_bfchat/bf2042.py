@@ -1,6 +1,6 @@
 from nonebot import get_driver
 
-from nonebot import on_command
+from nonebot import on_command, require
 from nonebot.params import CommandArg, Depends, _command_arg
 from nonebot.adapters.onebot.v11 import GROUP, Message, MessageEvent, MessageSegment, GroupMessageEvent
 from nonebot.typing import T_State
@@ -8,6 +8,7 @@ from nonebot.typing import T_State
 import requests
 import json
 
+require("nonebot_plugin_htmlrender")
 from nonebot_plugin_htmlrender import md_to_pic, html_to_pic
 
 from pathlib import Path

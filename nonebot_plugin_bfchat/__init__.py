@@ -1,7 +1,7 @@
 from nonebot import get_driver
 
 
-from nonebot import on_command
+from nonebot import on_command, require
 from nonebot.rule import to_me
 from nonebot.matcher import Matcher
 from nonebot.adapters import Message
@@ -11,7 +11,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11.permission import GROUP_ADMIN, GROUP_OWNER
 from nonebot.permission import SUPERUSER
 
-
+require("nonebot_plugin_htmlrender")
 from nonebot_plugin_htmlrender import md_to_pic, html_to_pic
 
 from pathlib import Path
