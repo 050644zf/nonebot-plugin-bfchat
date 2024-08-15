@@ -1,9 +1,6 @@
-from pydantic import BaseSettings
+from pydantic import BaseModel, Field
 
 
-class Config(BaseSettings):
-    # Your Config Here
-    bfchat_prefix: str = '/'
-    bfchat_dir: str = './bfchat_data/'
-    class Config:
-        extra = "ignore"
+class Config(BaseModel):
+    bfchat_prefix: str = Field(default='/')
+    bfchat_dir: str = Field(default='./bfchat_data/')
